@@ -7,6 +7,7 @@ from src.core.use_cases.delete_product import DeleteProductUseCase
 from src.core.use_cases.get_product import GetProductUseCase
 from src.core.use_cases.health_check import HealthCheckUseCase
 from src.core.use_cases.list_products import ListProductsUseCase
+from src.core.use_cases.update_product import UpdateProductUseCase 
 from src.infra.db import SessionLocal
 from src.infra.repositories import SqlAlchemyProductRepository
 
@@ -44,6 +45,12 @@ def get_delete_product_use_case() -> DeleteProductUseCase:
 @lru_cache
 def get_add_comment_use_case() -> AddCommentUseCase:
     return AddCommentUseCase(get_product_repository())
+
+
+@lru_cache
+def get_update_product_use_case() -> UpdateProductUseCase:  
+    """Provê o caso de uso de atualização de produto."""
+    return UpdateProductUseCase(get_product_repository())
 
 
 @lru_cache

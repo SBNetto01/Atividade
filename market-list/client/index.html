@@ -11,40 +11,61 @@
 </head>
 
 <body>
-     <!-- Cabeçalho de informações do sistema -->
-    <header>
+     <header>
         <div class="title">
             <h1>Lista de Compras</h1>
         </div>
         <div class="banner">
-            <img src="https://images.contentstack.io/v3/assets/blt45c082eaf9747747/bltbcca43584b660977/5de0b6aa703bd50385f981ad/Header-5.jpg?width=1200&height=630&fit=crop"
-                alt="y">
+            <img src="httpsimg/market.jpg"
+                alt="Corredor de supermercado">
         </div>
     </header>
 
-     <!-- Opções para adicionar um novo item -->
-    <section class="newItem">
+     <section class="newItem">
         <input type="text" id="newInput" placeholder="Adicionar novo item:">
-        <input type="text" id="newQuantity" placeholder="Quantidade:">
-        <input type="text" id="newPrice" placeholder="Valor:">
+        <input type="number" id="newQuantity" placeholder="Quantidade:">
+        <input type="number" step="0.01" id="newPrice" placeholder="Valor:">
         <button onclick="newItem()" class="addBtn">Adicionar</button>
     </section>
 
-    <!-- Tabela com items existentes -->
     <section class="items">
         <table id="myTable">
-            <tr>
-                <th>Nome</th>
-                <th>Quantidade</th>
-                <th>Valor</th>
-                <th><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>
-            </tr>
+            <thead> <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
+                    <th>Editar</th> <th>Excluir</th> </tr>
+            </thead>
+            <tbody> </tbody>
         </table>
     </section>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-btn">&times;</span>
+            <h2>Editar Produto</h2>
+            <form id="editForm">
+                <input type="hidden" id="editProductId">
+                
+                <div>
+                    <label for="editProductName">Nome:</label>
+                    <input type="text" id="editProductName" required>
+                </div>
+                <div>
+                    <label for="editProductQuantity">Quantidade:</label>
+                    <input type="number" id="editProductQuantity">
+                </div>
+                <div>
+                    <label for="editProductPrice">Valor:</label>
+                    <input type="number" step="0.01" id="editProductPrice" required>
+                </div>
+                
+                <button type="submit" class="addBtn">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
 
 </html>
-
-

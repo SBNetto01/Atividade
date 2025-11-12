@@ -33,3 +33,8 @@ class ProductRepository(ABC):
     @abstractmethod
     def add_comment(self, product_id: int, comment: Comment) -> Product:
         """Attach a comment to a product and return the updated product."""
+
+    @abstractmethod
+    def update(self, product: Product) -> Product:
+        """Update an existing product and return the updated instance."""
+        raise NotImplementedError

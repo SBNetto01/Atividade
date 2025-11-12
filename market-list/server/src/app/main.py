@@ -8,6 +8,7 @@ from src.app.dependencies import (
     get_get_product_use_case,
     get_health_check_use_case,
     get_list_products_use_case,
+    get_update_product_use_case,
 )
 from src.app.routes import (
     register_comment_routes,
@@ -28,7 +29,18 @@ info = Info(
 def create_app() -> OpenAPI:
     configure_logging()
     application = OpenAPI(__name__, info=info)
-    CORS(application)
+
+    CORS(
+        application,
+        resources={
+            r"/*": {
+                "origins": "*",
+                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "allow_headers": ["Content-Type", "Authorization"],
+            }
+        },
+    )
+ 
 
     register_docs_routes(application)
     register_product_routes(
@@ -37,6 +49,7 @@ def create_app() -> OpenAPI:
         list_use_case=get_list_products_use_case(),
         get_use_case=get_get_product_use_case(),
         delete_use_case=get_delete_product_use_case(),
+        update_use_case=get_update_product_use_case(),
     )
     register_comment_routes(application, get_add_comment_use_case())
     register_health_routes(application, get_health_check_use_case())

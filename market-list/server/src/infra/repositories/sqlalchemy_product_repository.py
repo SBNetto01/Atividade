@@ -107,9 +107,51 @@ class SqlAlchemyProductRepository(ProductRepository):
             session.add(comment_model)
             session.commit()
             session.refresh(product_model)
-            # reload comments for consistent mapping
             session.refresh(product_model, attribute_names=["comentarios"])
             return product_mapper.to_domain(product_model)
+        except Exception:
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
+    def update(self, product: Product) -> Product:
+        """
+        Atualiza um produto existente no banco de dados.
+        O 'product' recebido é uma entidade de domínio já atualizada pelo
+        caso de uso.
+        """
+        session = self._session_factory()
+        try:
+          
+            model = (
+                session.query(ProductModel)
+                .filter(ProductModel.id == product.id)
+                .first()
+            )
+
+            if not model:
+              
+                raise ValueError(
+                    "Produto não encontrado no repositório para atualização."
+                )
+
+         
+            model.nome = product.nome
+            model.quantidade = product.quantidade
+            model.valor = product.valor
+          
+
+            session.commit()
+            session.refresh(model)
+            
+            session.refresh(model, attribute_names=["comentarios"])
+            return product_mapper.to_domain(model)
+
+        except IntegrityError:
+            session.rollback()
+            
+            raise
         except Exception:
             session.rollback()
             raise

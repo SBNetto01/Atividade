@@ -8,6 +8,7 @@ from src.app.schemas.product import (
     ProdutoDelSchema,
     ProdutoSchema,
     ProdutoViewSchema,
+    UpdateProductSchema, 
     apresenta_produto,
     apresenta_produtos,
 )
@@ -22,6 +23,7 @@ __all__ = [
     "ProdutoDelSchema",
     "ProdutoSchema",
     "ProdutoViewSchema",
+    "UpdateProductSchema",  
     "apresenta_produto",
     "apresenta_produtos",
 ]
